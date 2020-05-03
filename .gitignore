@@ -1,5 +1,5 @@
-Pipfile.lock
 .vscode/settings.json
 *.pyc
 __pycache__/
 mongo/data/
+mongodb-script.sh
