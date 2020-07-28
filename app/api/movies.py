@@ -1,8 +1,7 @@
 from fastapi import FastAPI, Cookie, Response, APIRouter
-from config import database
+from app.db import TSUTAYA_MOVIES
 
 router = APIRouter()
-db = database
 
 @router.get("/movies")
 async def all_movies(genre: str, name: str, id: int):

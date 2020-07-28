@@ -8,8 +8,8 @@ verify_ssl = true
 [packages]
 fastapi = "*"
 uvicorn = "*"
-databases = "*"
-asyncpg = "*"
+pytest = "*"
+requests = "*"
 
 [requires]
 python_version = "3.6"

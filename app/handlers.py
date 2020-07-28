@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Depends, Header, HTTPException, Response
-from .router import movies, member, borrow
-from config import database
+from .api import movies, member
+import logging
 
 app = FastAPI(title = "FastAPI-Movies",
               version = "0.0.1",
@@ -12,11 +12,11 @@ async def information():
 
 @app.on_event("startup")
 async def startup_event():
-    await database.connect()    
+    logging.info("Application start")
 
 @app.on_event("shutdown")
 async def shutdown_event():
-    await database.disconnect()
+    logging.info("Application shutdown")
 
 async def get_token_header(x_token: str = Header(...)):
     if x_token != "fake-super-secret-token":
@@ -33,14 +33,6 @@ app.include_router(
     movies.router,
     prefix="/api/v1",
     tags=["movies"],
-    dependencies=[Depends(get_token_header)],
-    responses={404: {"description": "Not found"}},
-)
-
-app.include_router(
-    borrow.router,
-    prefix="/api/v1",
-    tags=["borrow"],
     dependencies=[Depends(get_token_header)],
     responses={404: {"description": "Not found"}},
 )

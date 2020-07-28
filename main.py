@@ -1,4 +1,4 @@
-from api.handlers import app
+from app.handlers import app
 import uvicorn
 
 if __name__ == "__main__":
