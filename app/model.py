@@ -1,7 +1,6 @@
 from pydantic import BaseModel
 from enum import Enum
 
-
 class RegisterObject(BaseModel):
     name : str 
     age : int
@@ -23,3 +22,4 @@ class MoviesObject(BaseModel):
 class RemoveMoviesObject(BaseModel):
     name : str
     movie_id : str
+ 
