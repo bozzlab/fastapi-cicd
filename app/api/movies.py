@@ -7,7 +7,7 @@ import logging
 
 router = APIRouter()
 
-@router.get("/movies")
+@router.get("/movies", status_code = 200)
 async def all_movies(x_card_id : str = Header(...)) -> Response:
     try:
         if is_adult(x_card_id):
@@ -18,7 +18,24 @@ async def all_movies(x_card_id : str = Header(...)) -> Response:
         logging.error(e)
         return JSONResponse(content = {"message" : "Error"}, status_code = 400)
 
-@router.post("/movies")
+@router.get("/movies/list_genre", status_code = 200)
+async def genre_movies(x_card_id : str = Header(...), genre : str = None) -> Response:
+    try:
+        if genre != None:
+            if is_adult(x_card_id):
+                return {"data" : [TSUTAYA_MOVIES[movie_id] for movie_id in TSUTAYA_MOVIES if TSUTAYA_MOVIES[movie_id]['genre'] == genre]}
+            else:
+                if genre != "adult" :
+                    return {"data" : [TSUTAYA_MOVIES[movie_id] for movie_id in TSUTAYA_MOVIES if TSUTAYA_MOVIES[movie_id]['genre'] == genre]}
+                else: 
+                    return JSONResponse(content = {"message" : "You cannot get adult video."}, status_code = 403)   
+        else: 
+            return {"data" : set([TSUTAYA_MOVIES[movie_id]['genre'] for movie_id in TSUTAYA_MOVIES])}
+    except Exception as e:
+        logging.error(e)
+        return JSONResponse(content = {"message" : "Error"}, status_code = 400)
+
+@router.post("/movies", status_code = 201)
 async def insert_new_movies(x_card_id : str = Header(...), req_body : MoviesObject = Body(...)) -> Response:
     try:
         if req_body:
@@ -46,7 +63,7 @@ async def insert_new_movies(x_card_id : str = Header(...), req_body : MoviesObje
         logging.error(e)
         return JSONResponse(content = {"message" : "Error"}, status_code = 400)            
 
-@router.delete("/movies")
+@router.delete("/movies", status_code = 200)
 async def delete_movie(x_card_id : str = Header(...), req_body : RemoveMoviesObject = Body(...)) -> Response:
     try:
         if req_body:
