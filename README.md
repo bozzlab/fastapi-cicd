@@ -12,11 +12,7 @@ pipenv install
 python main.py
 ```
 
-## Routing
+## Docs
 ```
-POST /api/v1/register
-GET /api/v1/movie
-PUT /api/v1/loan-movie
-POST /api/v1/movie
-DELETE /api/v1/movie
+0.0.0.0:8080/docs
 ```
