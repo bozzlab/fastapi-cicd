@@ -89,7 +89,7 @@ def test_remove_movies_child():
 def test_remove_movie_error():
     response = client.delete(f"/api/v1/movies", headers = {"X-Card-ID" : f"{member_chlid}"}, json = {"name" : "Hello Diff", "movie_id" : f"{movie_id_child}"}) 
     assert response.status_code == 400
-    assert response.json() == {"message" : "Not found."}
+    assert response.json() == {"message" : "Movie not found."}
 
 def test_genre_movie_error():
     response = client.get(f"/api/v1/movies/list_genre?genre=adult", headers = {"X-Card-ID" : f"{member_chlid}"}) 
