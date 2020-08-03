@@ -76,9 +76,9 @@ def test_new_movies_mature():
     global movie_id_mature
     movie_id_mature = response.json()['movie_id']
 
-def test_new_movies_child_adult():
+def test_new_movies_adult_by_child():
     response = client.post(f"/api/v1/movies", headers = {"X-Card-ID" : f"{member_chlid}"}, json = {"name" : "Lolita", "genre" : "adult"}) 
-    assert response.status_code == 400
+    assert response.status_code == 403
     assert response.json() == {"message" : "You cannot insert this movie."}
 
 def test_remove_movies_child():
@@ -88,7 +88,7 @@ def test_remove_movies_child():
 
 def test_remove_movie_error():
     response = client.delete(f"/api/v1/movies", headers = {"X-Card-ID" : f"{member_chlid}"}, json = {"name" : "Hello Diff", "movie_id" : f"{movie_id_child}"}) 
-    assert response.status_code == 400
+    assert response.status_code == 204
     assert response.json() == {"message" : "Movie not found."}
 
 def test_genre_movie_error():
@@ -96,12 +96,32 @@ def test_genre_movie_error():
     assert response.status_code == 403
     assert response.json() == {"message" : "You cannot get adult video."}
 
-def test_genre_movie_child():
+def test_genre_movie_list_child():
     response = client.get(f"/api/v1/movies/list_genre", headers = {"X-Card-ID" : f"{member_chlid}"})
     assert response.status_code == 200
+    print(response.json())
     assert len(response.json()['data']) == 7  
 
-def test_genre_movie_adult():
-    response = client.get(f"/api/v1/movies/list_genre?genre=action", headers = {"X-Card-ID" : f"{member_chlid}"}) 
+def test_genre_movie_mature():
+    response = client.get(f"/api/v1/movies/list_genre?genre=action", headers = {"X-Card-ID" : f"{member_mature}"}) 
     assert response.status_code == 200
     assert len(response.json()['data']) == 2  
+
+def test_genre_movie_child():
+    response = client.get(f"/api/v1/movies/list_genre?genre=action", headers = {"X-Card-ID" : f"{member_chlid}"}) 
+    assert response.status_code == 200
+    assert len(response.json()['data']) == 2 
+
+def test_genre_movie_detail_child():
+    response = client.get(f"/api/v1/movies/detail?name=Whiplash", headers = {"X-Card-ID" : f"{member_chlid}"}) 
+    assert response.status_code == 200
+    assert response.json()['data'][0]['name'] == "Whiplash"
+
+def test_genre_movie_detail_child_error():
+    response = client.get(f"/api/v1/movies/detail?name=Love Love v2", headers = {"X-Card-ID" : f"{member_chlid}"}) 
+    assert response.status_code == 403
+
+def test_genre_movie_detail_mature():
+    response = client.get(f"/api/v1/movies/detail?name=Love Love v2", headers = {"X-Card-ID" : f"{member_mature}"}) 
+    assert response.status_code == 200
+    assert response.json()['data'][0]['name'] == "Love Love v2"

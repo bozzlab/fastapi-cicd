@@ -19,6 +19,27 @@ async def all_movies(x_card_id : str = Header(...)) -> Response:
         logging.error(e)
         return JSONResponse(content = {"message" : "Error"}, status_code = 400)
 
+
+@router.get("/movies/detail", status_code = 200)
+async def movie_detail(x_card_id : str = Header(...), name : str = None) -> Response:
+    try:
+        if not name:
+            return {"message" : "Invalid Requests"}
+
+        if not is_adult(x_card_id):
+            movie_detail = {"data" : [TSUTAYA_MOVIES[movie_id] for movie_id in TSUTAYA_MOVIES \
+                            if TSUTAYA_MOVIES[movie_id]['name'] == name and TSUTAYA_MOVIES[movie_id]['genre'] != "adult"]} 
+            if len(movie_detail['data']) == 0:
+                return JSONResponse(content = {"message" : "You cannot get adult video."}, status_code = 403) 
+            else: 
+                return movie_detail
+        
+        return {"data" : [TSUTAYA_MOVIES[movie_id] for movie_id in TSUTAYA_MOVIES if TSUTAYA_MOVIES[movie_id]['name'] == name]}
+
+    except Exception as e:
+        logging.error(e)
+        return JSONResponse(content = {"message" : "Error"}, status_code = 400)
+
 @router.get("/movies/list_genre", status_code = 200)
 async def genre_movies(x_card_id : str = Header(...), genre : str = None) -> Response:
     try:
@@ -45,7 +66,7 @@ async def insert_new_movies(x_card_id : str = Header(...), req_body : MoviesObje
 
         if not is_adult(x_card_id):
             if req_body.genre == "adult":
-                return JSONResponse(content = {"message" : "You cannot insert this movie."}, status_code = 400)   
+                return JSONResponse(content = {"message" : "You cannot insert this movie."}, status_code = 403)   
             
         TSUTAYA_MOVIES.update({ movie_id : {"name" : req_body.name,
                                             "genre" : req_body.genre ,
@@ -66,7 +87,7 @@ async def delete_movie(x_card_id : str = Header(...), req_body : RemoveMoviesObj
             return {"message" : "Invalid Requests"}
         
         if not TSUTAYA_MOVIES.get(req_body.movie_id, False):
-            return JSONResponse(content = {"message" : "Movie not found."}, status_code = 400)        
+            return JSONResponse(content = {"message" : "Movie not found."}, status_code = 204)        
         
         if TSUTAYA_MOVIES[req_body.movie_id]['created_by'] == TSUTAYA_MEMBER[x_card_id]['name']:
             TSUTAYA_MOVIES.pop(req_body.movie_id)
