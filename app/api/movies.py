@@ -8,7 +8,7 @@ import logging
 router = APIRouter()
 
 @router.get("/movies", status_code = 200)
-async def all_movies(x_card_id : str = Header(...)) -> Response:
+async def fetch_movies(x_card_id : str = Header(...)) -> Response:
     try:
         if is_adult(x_card_id):
             return {"data" : [TSUTAYA_MOVIES[movie_id] for movie_id in TSUTAYA_MOVIES]}
@@ -57,16 +57,15 @@ async def genre_movies(x_card_id : str = Header(...), genre : str = None) -> Res
         return JSONResponse(content = {"message" : "Error"}, status_code = 400)
 
 @router.post("/movies", status_code = 201)
-async def insert_new_movies(x_card_id : str = Header(...), req_body : MoviesObject = Body(...)) -> Response:
+async def insert_movies(x_card_id : str = Header(...), req_body : MoviesObject = Body(...)) -> Response:
     try:
         if not req_body:
             return {"message" : "Invalid Requests"}
             
         movie_id = generate_id()
 
-        if not is_adult(x_card_id):
-            if req_body.genre == "adult":
-                return JSONResponse(content = {"message" : "You cannot insert this movie."}, status_code = 403)   
+        if not is_adult(x_card_id) and req_body.genre == "adult":
+            return JSONResponse(content = {"message" : "You cannot insert this movie."}, status_code = 403)   
             
         TSUTAYA_MOVIES.update({ movie_id : {"name" : req_body.name,
                                             "genre" : req_body.genre ,

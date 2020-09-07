@@ -3,7 +3,7 @@ from .db import TSUTAYA_MEMBER
 from .api import movies, member
 import logging
 
-app = FastAPI(title = "FastAPI Tsutaya Video Rental",
+app = FastAPI(title = "FastAPI Tsutaya Video Store",
               version = "0.0.1")
 
 @app.get("/api/v1/info")
