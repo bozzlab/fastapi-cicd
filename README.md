@@ -16,3 +16,6 @@ python main.py
 ```
 0.0.0.0:8080/docs
 ```
+
+## Medium (Thai Language)
+

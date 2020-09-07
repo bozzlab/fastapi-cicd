@@ -3,7 +3,8 @@ from .db import TSUTAYA_MEMBER
 from .api import movies, member
 import logging
 
-app = FastAPI(title = "FastAPI Tsutaya Video Store",
+app = FastAPI(title = "FastAPI Video Store",
+              description = "Description and tectnical detail of APIs, Live on Medium",
               version = "0.0.1")
 
 @app.get("/api/v1/info")
@@ -25,7 +26,6 @@ async def get_x_card_id_token(x_card_id: str = Header(...)):
     except Exception as e:
         logging.error(e)
         raise HTTPException(status_code = 400, detail = "X-Card-ID header invalid")
-
 
 app.include_router(
     member.router,
