@@ -3,3 +3,4 @@
 __pycache__/
 mongo/data/
 mongodb-script.sh
+.pytest_cache/
