@@ -1,5 +1,5 @@
-TSUTAYA_MEMBER = {"admin" : {"name" : "admin", "age" : 99, "role" : "admin", "phone_number" : "0000"},
-                  "tester" : {"name" : "tester" , "age" : 0, "role" : "member", "phone_number" : "0000"}}
+TSUTAYA_MEMBER = {"a89a568" : {"name" : "admin", "age" : 99, "role" : "admin", "phone_number" : "0000"},
+                  "7f2d018" : {"name" : "tester" , "age" : 0, "role" : "member", "phone_number" : "0000"}}
 
 TSUTAYA_MOVIES = {"ae8f6d28" : {"name" : "Avengers: Endgame", "genre" : "action", "created_by" : "admin",},
                  "b05b9445" : {"name" : "John Wick: Chapter 3 – Parabellum", "genre" : "action", "created_by" : "admin", },

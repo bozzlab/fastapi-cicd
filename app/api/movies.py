@@ -69,9 +69,7 @@ async def insert_movies(x_card_id : str = Header(...), req_body : MoviesObject =
             
         TSUTAYA_MOVIES.update({ movie_id : {"name" : req_body.name,
                                             "genre" : req_body.genre ,
-                                            "created_by" : TSUTAYA_MEMBER[x_card_id]['name'],
-                                            "is_available" : True,
-                                            "borrower" : None}})
+                                            "created_by" : TSUTAYA_MEMBER[x_card_id]['name']}})
 
         return {"message" : f"{req_body.name} has been added", "movie_id" : movie_id}
 
