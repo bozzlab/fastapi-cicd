@@ -6,10 +6,10 @@ steps:
   entrypoint: /bin/sh
   args:
   - -c
-  - 'pip install -r dev-requirements.txt && pytest'
+  - 'pip install -r requirements.txt && pytest'
 
 # This step builds the container image.
-# The PROJECT_ID and SHORT_SHA $REPO_NAME $BRANCH_NAME variables are automatically
+
 - name: 'gcr.io/cloud-builders/docker'
   id: Build
   args:
@@ -17,11 +17,10 @@ steps:
   - '-t'
   - 'gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME-$SHORT_SHA'
   - '.'
-  waitFor: ['-']
+  # waitFor: ['-']
   
 # This step pushes the image to Container Registry
-# The PROJECT_ID and SHORT_SHA $REPO_NAME $BRANCH_NAME variables are automatically
-# replaced by Cloud Build.
+
 - name: 'gcr.io/cloud-builders/docker'
   id: Push
   args:
@@ -44,5 +43,3 @@ steps:
   - '--allow-unauthenticated'
   - '--set-env-vars'
   - 'VERSION=Cloud Run'
-images:
-- 'gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME-$SHORT_SHA'
