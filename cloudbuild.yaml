@@ -23,7 +23,6 @@ steps:
   - '-t'
   - 'gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME-$SHORT_SHA'
   - '.'
-  # waitFor: ['-']
   
 # This step pushes the image to Container Registry
 
