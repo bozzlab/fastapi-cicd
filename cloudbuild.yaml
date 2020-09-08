@@ -42,9 +42,7 @@ steps:
   - '--image'
   - 'gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME-$SHORT_SHA'
   - '--region'
-  - asia-east1 
+  - asia-southeast1 
   - '--platform'
   - 'managed'
   - '--allow-unauthenticated'
-  - '--set-env-vars'
-  - 'VERSION=Cloud Run'
