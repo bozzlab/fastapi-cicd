@@ -1,10 +1,17 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# =============================================================================
+# Created By  : Peem Srinikorn
+# Created Date: Tue Sep  8 20:57:59 +07 2020
+# =============================================================================
+
 from fastapi import FastAPI, Depends, Header, HTTPException, Response
 from .db import TSUTAYA_MEMBER
 from .api import movies, member
 import logging
 
 app = FastAPI(title = "FastAPI Video Store",
-              description = "Description and tectnical detail of APIs, Live on Medium",
+              description = "Description and tectnical detail of APIs, Live on Medium | Author : Peem Srinikorn",
               version = "0.0.1")
 
 @app.get("/api/v1/info")

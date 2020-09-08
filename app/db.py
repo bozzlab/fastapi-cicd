@@ -1,3 +1,10 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# =============================================================================
+# Created By  : Peem Srinikorn
+# Created Date: Tue Sep  8 20:57:59 +07 2020
+# =============================================================================
+
 TSUTAYA_MEMBER = {"a89a568" : {"name" : "admin", "age" : 99, "role" : "admin", "phone_number" : "0000"},
                   "7f2d018" : {"name" : "tester" , "age" : 0, "role" : "member", "phone_number" : "0000"}}
 

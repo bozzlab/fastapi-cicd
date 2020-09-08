@@ -1,5 +1,6 @@
 # FastAPI => Movies Store
 
+## Author : Peem Srinikorn
 
 ## Prepare Project
 ```

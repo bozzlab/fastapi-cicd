@@ -1,3 +1,10 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# =============================================================================
+# Created By  : Peem Srinikorn
+# Created Date: Tue Sep  8 20:57:59 +07 2020
+# =============================================================================
+
 from starlette.responses import JSONResponse
 from fastapi import FastAPI, APIRouter, Body, Response
 from app.db import TSUTAYA_MEMBER

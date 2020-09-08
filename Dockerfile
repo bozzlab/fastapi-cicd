@@ -1,3 +1,10 @@
+#!/usr/bin/env dockerfile
+# -*- coding: utf-8 -*-
+# =============================================================================
+# Created By  : Peem Srinikorn
+# Created Date: Tue Sep  8 20:57:59 +07 2020
+# =============================================================================
+
 FROM python:3.6-slim
 ADD . / 
 RUN apt-get update \ 
