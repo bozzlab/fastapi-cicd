@@ -12,7 +12,7 @@ steps:
   entrypoint: /bin/sh
   args:
   - -c
-  - 'pip install -r requirements.txt && pytest'
+  - 'pip install -r requirements.txt && pytest -v'
 
 # This step builds the container image.
 
