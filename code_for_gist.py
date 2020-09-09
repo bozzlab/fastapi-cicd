@@ -26,7 +26,7 @@ class MoviesObject(BaseModel):
     genre : Genre
 
 app = FastAPI( title = "FastAPI Movies Store API",
-            description = "Description and tectnical detail of APIs, Live on Medium",
+            description = "Description and technical detail of APIs, Live on Medium",
             version = "1.0.0"
 )
 
@@ -53,15 +53,15 @@ async def check_token(x_token : str = Cookie(None)):
 
 @app.post("/movies")
 async def insert_movies(req_body : MoviesObject = Body(...), x_username : str = Header(...)):
-    """
-    Insert Movies:
-    - **name**: a title of movies
-    - **genre**: the genre of movies in Genre list
+    # """
+    # Insert Movies:
+    # - **name**: a title of movies
+    # - **genre**: the genre of movies in Genre list
 
-    Genre List:
-    - ["action", "sci-fi", "romantic", "horror", "drama", "adult"]
+    # Genre List:
+    # - ["action", "sci-fi", "romantic", "horror", "drama", "adult"]
 
-    """
+    # """
     movie_id = generate_id()
     TSUTAYA_MOVIES.update({ movie_id : {"name" : req_body.name,
                                         "genre" : req_body.genre ,

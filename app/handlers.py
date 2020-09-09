@@ -11,7 +11,7 @@ from .api import movies, member
 import logging
 
 app = FastAPI(title = "FastAPI Video Store",
-              description = "Description and tectnical detail of APIs, Live on Medium | Author : Peem Srinikorn",
+              description = "Description and technical detail of APIs, Live on Medium | Author : Peem Srinikorn",
               version = "0.0.1")
 
 @app.get("/api/v1/info")
