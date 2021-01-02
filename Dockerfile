@@ -6,6 +6,7 @@
 # =============================================================================
 
 FROM python:3.6-slim
+LABEL maintainer "Peem Srinikorn"
 ADD . / 
 RUN apt-get update \ 
     && apt-get install gcc -y \
